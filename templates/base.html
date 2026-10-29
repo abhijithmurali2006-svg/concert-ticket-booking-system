@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Acoustic Paradise{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0b0b0e;
+            color: #f3f4f6;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .panel {
+            background: #14141c;
+            border: 1px solid #242432;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .panel-pad { padding: 28px; }
+
+        .page-heading { margin-bottom: 22px; }
+        .page-heading h1 {
+            margin: 0;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .page-heading p {
+            margin: 7px 0 0;
+            color: #8e8e9e;
+            font-size: 0.88rem;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 4px 9px;
+            border: 1px solid rgba(225, 29, 72, 0.35);
+            border-radius: 6px;
+            background: rgba(225, 29, 72, 0.12);
+            color: #fda4af;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0 14px;
+        }
+        .field { min-width: 0; }
+        .field-full { grid-column: 1 / -1; }
+
+        .panel label {
+            display: block;
+            margin: 14px 0 6px;
+            color: #8e8e9e;
+            font-size: 0.72rem;
+            font-weight: 750;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+        }
+
+        .panel input,
+        .panel select {
+            width: 100%;
+            min-height: 43px;
+            padding: 10px 12px;
+            border: 1px solid #242432;
+            border-radius: 8px;
+            outline: none;
+            background: #1a1a24;
+            color: #f3f4f6;
+            font: inherit;
+            font-size: 0.88rem;
+        }
+
+        .panel input:focus,
+        .panel select:focus {
+            border-color: #e11d48;
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.12);
+        }
+
+        .form-submit {
+            width: 100%;
+            min-height: 42px;
+            margin-top: 20px;
+            padding: 10px 16px;
+            border: 0;
+            border-radius: 8px;
+            background: #e11d48;
+            color: white;
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.84rem;
+            font-weight: 750;
+        }
+        .form-submit:hover { background: #be123c; }
+
+        .price-list {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .price-item {
+            padding: 11px;
+            border: 1px solid #242432;
+            border-radius: 8px;
+            background: #1a1a24;
+            color: #8e8e9e;
+            font-size: 0.75rem;
+        }
+        .price-item strong {
+            display: block;
+            margin-top: 3px;
+            color: #fff;
+            font-size: 0.86rem;
+        }
+
+        .ticket {
+            margin-top: 22px;
+            padding: 22px;
+            border: 1px dashed rgba(225, 29, 72, 0.75);
+            border-radius: 12px;
+            background: #1a1a24;
+        }
+        .ticket-header,
+        .ticket-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+        .ticket-header {
+            align-items: flex-start;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #242432;
+        }
+        .ticket-header h3 { margin: 4px 0 0; color: #fff; }
+        .ticket-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            padding: 18px 0;
+        }
+        .ticket-detail span {
+            display: block;
+            color: #8e8e9e;
+            font-size: 0.68rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .ticket-detail strong { color: #fff; }
+        .ticket-seat { color: #6ee7b7 !important; }
+        .ticket-footer {
+            padding-top: 14px;
+            border-top: 1px solid #242432;
+        }
+        .status-confirmed {
+            color: #6ee7b7;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+        .print-button {
+            width: auto;
+            margin: 0;
+            padding: 9px 14px;
+            border: 0;
+            border-radius: 8px;
+            background: #e11d48;
+            color: #fff;
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 20px;
+            border: 1px solid #242432;
+            border-radius: 10px;
+        }
+        .panel table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.82rem;
+        }
+        .panel th,
+        .panel td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #242432;
+            white-space: nowrap;
+        }
+        .panel th {
+            background: #1a1a24;
+            color: #8e8e9e;
+            font-size: 0.68rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .panel tbody tr:last-child td { border-bottom: 0; }
+        .panel tbody tr:hover { background: rgba(255, 255, 255, 0.025); }
+        .empty-state {
+            margin-top: 20px;
+            padding: 22px;
+            border: 1px dashed #242432;
+            border-radius: 10px;
+            color: #8e8e9e;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .panel-pad { padding: 20px; }
+            .form-grid,
+            .price-list { grid-template-columns: 1fr; }
+            .field-full { grid-column: auto; }
+            .ticket-footer { align-items: flex-start; flex-direction: column; }
+            .print-button { width: 100%; }
+        }
+
+        @media print {
+            body { background: #fff; color: #111; }
+            header, .announcement, footer, .no-print, .flash { display: none !important; }
+            main { width: 100%; margin: 0; padding: 0; }
+            .panel, .ticket { border: 1px solid #999; background: #fff; box-shadow: none; color: #111; }
+            .ticket-detail span,
+            .ticket-detail strong,
+            .ticket-header h3 { color: #111 !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+    <header class="bg-[#111116]/90 border-b border-[#242432] backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+            <a href="{{ url_for('index') }}" class="flex items-center gap-2 text-xl font-extrabold tracking-tight">
+                <span class="grid h-8 w-8 place-items-center rounded-lg bg-rose-600 text-white" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor">
+                        <path d="M12 3v12.2a3.5 3.5 0 1 1-2-3.16V7.5l10-2.5v10.2a3.5 3.5 0 1 1-2-3.16V3l-6 1.5V3Z"/>
+                    </svg>
+                </span>
+                <span class="text-white">ACOUSTIC <span class="text-rose-500">PARADISE</span></span>
+                <span class="text-rose-500 text-xs font-bold uppercase tracking-widest border border-rose-500/30 bg-rose-500/10 px-1.5 py-0.5 rounded">LIVE</span>
+            </a>
+
+            <nav class="flex items-center gap-1 text-sm font-medium" aria-label="Main navigation">
+                <a href="{{ url_for('index') }}" class="px-3 py-1.5 rounded-lg {{ 'text-white bg-slate-800' if request.endpoint == 'index' else 'text-slate-400 hover:text-white hover:bg-slate-800' }} transition">Home</a>
+                <a href="{{ url_for('book') }}" class="px-3 py-1.5 rounded-lg {{ 'text-white bg-slate-800' if request.endpoint == 'book' else 'text-slate-400 hover:text-white hover:bg-slate-800' }} transition">Book Tickets</a>
+                <a href="{{ url_for('download') }}" class="px-3 py-1.5 rounded-lg {{ 'text-white bg-slate-800' if request.endpoint == 'download' else 'text-slate-400 hover:text-white hover:bg-slate-800' }} transition">Download Pass</a>
+                <a href="{{ url_for('admin') }}" class="px-3 py-1.5 rounded-lg {{ 'text-white bg-slate-800' if request.endpoint == 'admin' else 'text-slate-400 hover:text-white hover:bg-slate-800' }} transition">Admin View</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="announcement bg-rose-500/10 border-b border-rose-500/20 px-4 py-2 text-center text-xs text-rose-300 font-medium">
+        ⚡ <strong>December Tour Pass Alert:</strong> Save your booking UID at checkout to easily pull up your pass anytime.
+    </div>
+
+    <main class="max-w-5xl w-full mx-auto px-4 py-8 flex-grow">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="mb-6 p-4 rounded-xl text-xs font-semibold flex items-center gap-2 border {{ 'bg-rose-950/40 border-rose-800 text-rose-300' if category == 'error' else 'bg-emerald-950/40 border-emerald-800 text-emerald-300' }}" role="status">
+                <span>{{ '⚠️' if category == 'error' else '✅' }}</span>
+                <span>{{ message }}</span>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="border-t border-[#242432] py-6 text-center text-xs text-slate-500">
+        © 2026 Acoustic Paradise LIVE — Concert Tour
+    </footer>
+</body>
+</html>
