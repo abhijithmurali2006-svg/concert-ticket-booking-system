@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Admin Ledger | Acoustic Paradise{% endblock %}
+{% block content %}
+<section class="panel panel-pad">
+    <div class="page-heading">
+        <span class="eyebrow">Database records</span>
+        <h1>Administration ledger</h1>
+        <p>Select a city to view reservations saved in the SQLite database.</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('admin') }}">
+        <div class="form-grid">
+            <div class="field field-full">
+                <label for="city">Concert city</label>
+                <select id="city" name="city" required>
+                    <option value="mumbai" {{ 'selected' if selected_city == 'mumbai' else '' }}>Mumbai</option>
+                    <option value="kolkata" {{ 'selected' if selected_city == 'kolkata' else '' }}>Kolkata</option>
+                    <option value="bangalore" {{ 'selected' if selected_city == 'bangalore' else '' }}>Bangalore</option>
+                </select>
+            </div>
+        </div>
+        <button class="form-submit" type="submit">Load reservation records</button>
+    </form>
+
+    {% if city %}
+        <h2 class="section-title">Records for {{ city }}</h2>
+        {% if records %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>UID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Block</th>
+                        <th>Seat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ record['uid_no'] }}</td>
+                        <td>{{ record['name'] }}</td>
+                        <td>{{ record['age'] }}</td>
+                        <td>{{ record['gender'] }}</td>
+                        <td>Block {{ record['block'].upper() }}</td>
+                        <td>{{ record['seat_no'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">No reservations found for {{ city }} yet.</div>
+        {% endif %}
+    {% endif %}
+</section>
+{% endblock %}

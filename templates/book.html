@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Book Tickets | Acoustic Paradise{% endblock %}
+{% block content %}
+<section class="panel panel-pad">
+    <div class="page-heading">
+        <span class="eyebrow">Seat reservation</span>
+        <h1>Book concert tickets</h1>
+        <p>Enter your attendee details and select a city, block, and available seat number.</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('book') }}">
+        <div class="form-grid">
+            <div class="field field-full">
+                <label for="city">Concert location</label>
+                <select id="city" name="city" required>
+                    <option value="mumbai" {{ 'selected' if selected_city == 'mumbai' else '' }}>Mumbai — December 24</option>
+                    <option value="kolkata" {{ 'selected' if selected_city == 'kolkata' else '' }}>Kolkata — December 28</option>
+                    <option value="bangalore" {{ 'selected' if selected_city == 'bangalore' else '' }}>Bangalore — December 31</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="uid">UID reference</label>
+                <input id="uid" type="number" name="uid" min="100" max="9999999999" placeholder="e.g. 101" required>
+            </div>
+            <div class="field">
+                <label for="name">Attendee name</label>
+                <input id="name" type="text" name="name" autocomplete="name" placeholder="Full name" required>
+            </div>
+            <div class="field">
+                <label for="age">Age</label>
+                <input id="age" type="number" name="age" min="1" placeholder="Age" required>
+            </div>
+            <div class="field">
+                <label for="gender">Gender</label>
+                <input id="gender" type="text" name="gender" placeholder="M / F / Other" required>
+            </div>
+            <div class="field field-full">
+                <label for="block">Seating block</label>
+                <select id="block" name="block" required>
+                    <option value="a">Block A — Floor tier (₹50,000), seats 1–50</option>
+                    <option value="b">Block B — Lower tier (₹30,000), seats 51–100</option>
+                    <option value="c">Block C — Upper tier (₹16,000), seats 101–150</option>
+                </select>
+            </div>
+            <div class="field field-full">
+                <label for="seat">Seat number</label>
+                <input id="seat" type="number" name="seat" min="1" max="150" placeholder="Seat number for the selected block" required>
+            </div>
+        </div>
+
+        <div class="price-list" aria-label="Ticket prices">
+            <div class="price-item">Block A<strong>₹50,000 · Seats 1–50</strong></div>
+            <div class="price-item">Block B<strong>₹30,000 · Seats 51–100</strong></div>
+            <div class="price-item">Block C<strong>₹16,000 · Seats 101–150</strong></div>
+        </div>
+
+        <button class="form-submit" type="submit">Confirm reservation</button>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Retrieve Pass | Acoustic Paradise{% endblock %}
+{% block content %}
+<section class="panel panel-pad">
+    <div class="page-heading">
+        <span class="eyebrow">Digital ticket</span>
+        <h1>Retrieve your concert pass</h1>
+        <p>Enter the city and UID used when you booked your ticket.</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('download') }}">
+        <div class="form-grid">
+            <div class="field">
+                <label for="city">Concert city</label>
+                <select id="city" name="city" required>
+                    <option value="mumbai" {{ 'selected' if selected_city == 'mumbai' else '' }}>Mumbai</option>
+                    <option value="kolkata" {{ 'selected' if selected_city == 'kolkata' else '' }}>Kolkata</option>
+                    <option value="bangalore" {{ 'selected' if selected_city == 'bangalore' else '' }}>Bangalore</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="uid">UID number</label>
+                <input id="uid" type="number" name="uid" placeholder="Enter your UID" required>
+            </div>
+        </div>
+        <button class="form-submit" type="submit">Find ticket pass</button>
+    </form>
+
+    {% if ticket %}
+    <article class="ticket" aria-label="Concert ticket">
+        <div class="ticket-header">
+            <div>
+                <span class="eyebrow">Confirmed pass</span>
+                <h3>Acoustic Paradise Tour 2026</h3>
+            </div>
+            <div class="ticket-detail">
+                <span>Location</span>
+                <strong>{{ city }}</strong>
+            </div>
+        </div>
+        <div class="ticket-grid">
+            <div class="ticket-detail"><span>Attendee</span><strong>{{ ticket['name'] }}</strong></div>
+            <div class="ticket-detail"><span>UID reference</span><strong>{{ ticket['uid_no'] }}</strong></div>
+            <div class="ticket-detail"><span>Age / Gender</span><strong>{{ ticket['age'] }} / {{ ticket['gender'] }}</strong></div>
+            <div class="ticket-detail"><span>Block</span><strong>Block {{ ticket['block'].upper() }}</strong></div>
+            <div class="ticket-detail"><span>Assigned seat</span><strong class="ticket-seat">#{{ ticket['seat_no'] }}</strong></div>
+        </div>
+        <div class="ticket-footer">
+            <span class="status-confirmed">● &nbsp; CONFIRMED</span>
+            <button class="print-button no-print" type="button" onclick="window.print()">Print pass</button>
+        </div>
+    </article>
+    {% endif %}
+</section>
+{% endblock %}
